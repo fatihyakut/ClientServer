@@ -4,16 +4,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
+
+import server.TestObject;
 
 public class Client {
 	public static void main(String[] args) throws IOException {
-		System.out.println("Sender Start");
+		System.out.println("Client Start");
 
-		Socket socket = new Socket("localhost", 9090);
+		Socket socket = new Socket("localhost", 10500);
 
 		InputStream is = socket.getInputStream();
 
@@ -24,11 +23,11 @@ public class Client {
 
 		ObjectInputStream ois = new ObjectInputStream(is);
 
-		String answer = null;
+		TestObject obj = null;
 
 		try {
-			while ((answer = (String) ois.readObject()) != null) {
-				System.err.println("Answer : " + answer);
+			while ((obj = (TestObject) ois.readObject()) != null) {
+				System.err.println("Answer : " + obj.toString());
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -37,21 +36,5 @@ public class Client {
 			oos.close();
 		}
 		System.err.println("Client bitti!!");
-		// ServerSocketChannel ssChannel = ServerSocketChannel.open();
-		// ssChannel.configureBlocking(true);
-		// int port = 12345;
-		// ssChannel.socket().bind(new InetSocketAddress(port));
-		//
-		// String obj = "testtext";
-		// while (true) {
-		// SocketChannel sChannel = ssChannel.accept();
-		//
-		// ObjectOutputStream oos = new ObjectOutputStream(sChannel.socket()
-		// .getOutputStream());
-		// oos.writeObject(obj);
-		// oos.close();
-		//
-		// System.out.println("Connection ended");
-		// }
 	}
 }

@@ -1,35 +1,24 @@
 package server;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-	public static void main(String[] args) throws IOException,
-			ClassNotFoundException {
-		System.out.println("Receiver Start");
+	public static void main(String[] args) {
+		System.out.println("Server Start");
 
-		@SuppressWarnings("resource")
-		ServerSocket socket = new ServerSocket(9090);
-
-		Socket client = socket.accept();
-
-		ObjectOutputStream oos = new ObjectOutputStream(
-				client.getOutputStream());
-
-		ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
-
-		String input = null;
-
-		while ((input = (String) ois.readObject()) != null) {
-			System.out.println("Input : " + input);
-			oos.writeObject("Okudum");
+		ServerSocket socket;
+		try {
+			socket = new ServerSocket(10500);
+			while (true) {
+				Socket client = socket.accept();
+				new ServerThread(client).start();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		oos.close();
-		client.close();
 
 	}
 }
