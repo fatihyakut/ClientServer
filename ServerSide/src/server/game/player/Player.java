@@ -1,23 +1,26 @@
 package server.game.player;
 
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
 import server.game.player.state.PlayerState;
 
-public class Player implements Observer {
+public class Player implements Observer, Serializable {
 
-	
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3000609562688518761L;
 	private PlayerState state = null;
 	private String userName;
 	private PrintWriter writer;
 
-	public Player(String userName, PlayerState initialState) {
+	public Player(String userName) {
 		// TODO Auto-generated constructor stub
 		this.userName = userName;
-		this.state = initialState;
+		this.state = null;
 	}
 
 	public PlayerState getState() {

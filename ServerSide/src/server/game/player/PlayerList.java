@@ -58,4 +58,9 @@ public class PlayerList implements BasicHashAdapter<String, Player> {
 		return this.players.remove(key);
 	}
 
+	@Override
+	public Collection<Player> values() {
+		return this.players.values();
+	}
+
 }

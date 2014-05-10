@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
-import server.TestObject;
+import server.game.player.Player;
+import server.game.player.PlayerList;
 
 public class ServerThread extends Thread {
 
@@ -17,7 +17,6 @@ public class ServerThread extends Thread {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 
 		ObjectOutputStream oos = null;
 		ObjectInputStream ois = null;
@@ -29,11 +28,10 @@ public class ServerThread extends Thread {
 			String input = null;
 
 			while ((input = (String) ois.readObject()) != null) {
-				System.out.println("Input : " + input);
-				TestObject t = new TestObject();
-				t.setName("Ayýdoþ");
-				t.setAge(10);
-				oos.writeObject(t);
+				oos.writeObject(Server.getServer().getPlayerList());
+
+				Server.getServer().getPlayerList()
+						.insert(input, new Player(input));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
