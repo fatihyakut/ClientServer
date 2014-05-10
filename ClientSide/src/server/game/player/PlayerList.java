@@ -2,6 +2,7 @@ package server.game.player;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import server.data_structures.BasicHashAdapter;
@@ -56,6 +57,11 @@ public class PlayerList implements BasicHashAdapter<String, Player> {
 	@Override
 	public Player remove(String key) {
 		return this.players.remove(key);
+	}
+
+	@Override
+	public Collection<Player> values() {
+		return this.players.values();
 	}
 
 }

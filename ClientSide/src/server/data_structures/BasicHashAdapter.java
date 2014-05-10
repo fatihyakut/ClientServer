@@ -46,4 +46,6 @@ public interface BasicHashAdapter<K, V> extends Serializable {
 	 */
 	public V remove(K key);
 
+	public Collection<V> values();
+
 }
